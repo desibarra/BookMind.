@@ -40,8 +40,9 @@ const GenerateStructure: React.FC = () => {
                 ) : (
                     <>
                         <div className="text-right mb-4">
+                            {/* FIX: Use translation keys instead of hardcoded Spanish text */}
                             <button onClick={() => setIsEditing(!isEditing)} className="text-sm text-accent font-semibold hover:underline">
-                                {isEditing ? 'Vista Previa' : 'Editar'}
+                                {isEditing ? t('structure_preview_button') : t('structure_edit_button')}
                             </button>
                         </div>
                         {isEditing ? (

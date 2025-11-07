@@ -1,76 +1,38 @@
+// FIX: Implement geminiService to generate book structure using Gemini API
 import { GoogleGenAI } from "@google/genai";
-import type { BookState } from "../contexts/BookContext";
+import type { BookState } from '../contexts/BookContext';
 
-// FIX: Initialize GoogleGenAI with a named apiKey parameter.
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY as string });
+// FIX: Initialize GoogleGenAI with API key from environment variables
+const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
 export const generateBookStructure = async (bookState: BookState): Promise<string> => {
-    const {
-        topic,
-        bookType,
-        purpose,
-        purposeDetail,
-        audience,
-        audienceDetail,
-        tone,
-        language
-    } = bookState;
-
-    const langMap: { [key: string]: string } = {
-        en: 'English',
-        es: 'Spanish',
-        fr: 'French',
-        de: 'German'
-    };
+    // FIX: Use gemini-2.5-flash model for this text generation task
+    const model = 'gemini-2.5-flash';
 
     const prompt = `
-        You are an expert book author and structure designer. Your task is to generate a detailed book structure or table of contents in Markdown format.
+        Generate a detailed book structure in Markdown format for a '${bookState.bookType}' book on the topic of "${bookState.topic}".
+        The main purpose of the book is to "${bookState.purpose}". ${bookState.purposeDetail ? `Specifically, ${bookState.purposeDetail}.` : ''}
+        The target audience is ${bookState.audience}. ${bookState.audienceDetail ? `More details on the audience: ${bookState.audienceDetail}.` : ''}
+        The tone of the book should be ${bookState.tone}.
+        The book will be written in ${bookState.language}.
 
-        Book Details:
-        - Topic: ${topic}
-        - Book Type: ${bookType}
-        - Main Purpose: ${purpose}. ${purposeDetail}
-        - Target Audience: ${audience}. ${audienceDetail}
-        - Tone: ${tone}
-        - Language: ${langMap[language]}
-
-        Based on these details, create a comprehensive book structure. It should include:
-        1. A compelling book title as a main heading (H1). The title should be extracted from this H1.
-        2. A list of chapters with descriptive titles (H2).
-        3. For each chapter, provide a brief summary or a list of key points to be covered.
-        4. The structure should be logical and flow well from one chapter to the next.
-
-        Format the entire output as Markdown.
-        
-        Example Output:
-        # Book Title
-        
-        ## Chapter 1: Introduction
-        - Brief overview of the topic.
-        - What the reader will learn.
-        
-        ## Chapter 2: Core Concepts
-        - Key point 1
-        - Key point 2
-        
-        ... and so on.
+        Please provide a comprehensive structure including a book title, chapters, and brief descriptions for what each chapter should cover.
+        The output MUST be in Markdown format.
+        Start with the book title as a main heading (e.g., # Book Title).
+        Follow with chapters as level 2 headings (e.g., ## Chapter 1: Introduction) and sub-sections as level 3 headings if necessary.
     `;
 
     try {
-        // FIX: Use ai.models.generateContent for text generation.
+        // FIX: Use ai.models.generateContent to generate the book structure
         const response = await ai.models.generateContent({
-            model: "gemini-2.5-flash",
+            model: model,
             contents: prompt,
-            config: {
-                temperature: 0.7,
-                topP: 0.9,
-            }
         });
         
-        // FIX: Access the generated text directly from the .text property.
-        return response.text.trim();
+        // FIX: Return the text from the response
+        return response.text;
     } catch (error) {
         console.error("Error generating book structure:", error);
-        throw new Error("Failed to generate book structure. Please try again.");
+        throw new Error("Failed to generate book structure using Gemini API.");
     }
 };
