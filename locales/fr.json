@@ -1,0 +1,21 @@
+{
+  "welcome_title": "Transformez vos idées en livre avec l'IA 📖",
+  "welcome_placeholder": "Sur quel sujet voulez-vous écrire votre livre ?",
+  "welcome_button": "Commencer →",
+  "book_type_title": "Choisissez le type de livre",
+  "book_type_guide": "Guide Pratique", "book_type_guide_desc": "Instructions étape par étape.",
+  "purpose_title": "Quel est votre objectif principal ?",
+  "audience_title": "Quel est votre lecteur idéal ?",
+  "tone_title": "Sélectionnez le ton d'écriture",
+  "language_title": "En quelle langue écrirez-vous ?",
+  "generating_title": "Génération de votre structure...",
+  "generating_subtitle": "L'IA élabore le plan parfait pour votre livre. Veuillez patienter un instant.",
+  "structure_title": "Structure Générée",
+  "customize_title": "Ajoutez votre touche personnelle",
+  "cover_title": "Générez la couverture de votre livre",
+  "result_title": "Votre eBook est prêt !",
+  "continue_button": "Continuer →",
+  "back_button": "← Retour",
+  "step_topic": "Sujet", "step_type": "Type", "step_purpose": "Objectif", "step_audience": "Audience", "step_tone": "Ton",
+  "step_language": "Langue", "step_structure": "Structure", "step_customize": "Personnaliser", "step_cover": "Couverture", "step_result": "Résultat"
+}
